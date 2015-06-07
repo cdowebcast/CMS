@@ -1,250 +1,197 @@
 <?php
 session_start();
-echo $_SESSION["email"];
 
-echo $_SESSION["password"];
-echo ("Heya");
+if (empty($_SESSION['id'])){
+
+  echo ("fail");
+  $_SESSION['message']="Please login to take an appointment";
+  header ('Location: login.php');
+//  echo ($_SESSION['email']);
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
-     .divv{
-	  float : right; 
-         }
-		 .carousel-inner > .item > img,
-  .carousel-inner > .item > a > img {
-      width: 50%;
-      margin: auto;
-  }
-    .but{
-	    width: 100%;
-	}
-	.h2{
-	  color: blue;
-	}
-	.mod {
-	width: 100%;
-	}
-	.cont {
-	margin-left: 7%;
-	margin-right: 7%;
-	}
-    
-</style>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Appointment</title>
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,800,700,300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=BenchNine:300,400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-<div class="container-fluid">
-  <h1 align= "center"> CMS </h1>
- 
-  <div class="row">
-    <div class="col-sm-4" style="background-color:lavender;"></div>
-    <div class="col-sm-4" style="background-color:lavenderblush;"> </ditv>
-  <div class="col-sm-4" style="background-color:lavender;"></div>
-	 </div>
-  <div class="container" width=100%>
-  <form action= "firstpage.html" method = "get">
-  <button type="button" class="btn btn-default">HOME</button>
-   <button align="right" type="button" class="btn btn-default">SignOut</button>
-  </form>
-  
-  
+<!-- ====================================================
+	header section -->
+<header class="top-header">
+  <div class="container">
+    <div class="row" >
+      <div class="col-xs-2 header-logo"> <br>
+        <a href="index.php"><img src="img/logo.png" alt="" class="img-responsive logo"></a> </div>
+      <div class="col-md-9">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid nav-bar"> 
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            </div>
+            
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a class="menu active" href="index.php#home">Home</a></li>
+                <li><a class="menu" href="index.php#about">about us</a></li>
+                <li><a class="menu" href="index.php#service">our services </a></li>
+                <li><a class="menu" href="index.php#team">our team</a></li>
+                <li><a class="menu" href="index.php#contact"> contact us</a></li>
+               
+               <?php
+				if(empty($_SESSION['id']))
+						{
+							echo "<li><a class='menu' href='signup.php'> Register</a></li>";
+							echo "<li><a class='menu' href='login.php'> Login</a></li>";
+							
+						}
+						else{
+					  echo "<li><a class='menu' href='appointment.php'>Take Appointment</a></li>";
+							echo "<li><a class='menu' href='signout.php'>Sign Out</a></li>";
+							echo $_SESSION['email'];
+						}
+			?>
+              </ul>
+            </div>
+            <!-- /navbar-collapse --> 
+          </div>
+          <!-- / .container-fluid --> 
+        </nav>
+      </div>
+    </div>
   </div>
-  </div>
-  
-  
-  
-  <br>
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-      <li data-target="#myCarousel" data-slide-to="3"></li>
-    </ol>
+</header>
+<!-- end of header area -->
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-      <div class="item active">
-        <img src="1.jpg" alt="Chania" width="460" height="345">
-      </div>
-      <div class="item">
-        <img src="2.jpg" alt="Flower" width="460" height="345">
-      </div>
+<section class="about text-center" id="sign_up">
+<div class="container">
+<div class="row" style='margin-top: 70px'>
+  <h2>Appointment</h2>
+  
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title"></h4>
     </div>
+    <div class="modal-body">
+      <form a id= "#C4" class="form-horizontal" role="form">
+        <div  class="form-group">
+          <label class="control-label col-sm-2" for="Username">Patient Name:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="Username" placeholder="Enter your Name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="Contact">Date</label>
+          <div class="col-sm-10">
+            <input type="date" class="form-control" id="datefrom" placeholder="Select Date">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="Contact">Doctor</label>
+          <div class="col-sm-10">
+	   
+            <select class="form-control" name="doctor" id="doctor">
+              <option value="0" disabled>Select Doctor</option>
+            
 
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-  <div class = "mod">
- <div class="col-sm-4" >
-   <div class="but">
-  <button type="button"class="btn btn-default btn-block" data-toggle="modal" data-target="#myModal" >Doctors Timetable
-  </div>
-  </div>
- 
-  <div class="col-sm-4">
-  <div class="but">
-  <button type="button"class="btn btn-default btn-block" data-toggle="modal" data-target="#myModal3" >Emergency Cases
-  </div>
-  
-  </div>
-<div class="col-sm-4">
-  <div class="but">
-  <button type="button"class="btn btn-default btn-block" data-toggle="modal" data-target="#myModal2" >Opening Hours
-  </div>
-  
-  </div>
-  
-   
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Doctors Timetable</h4>
+<?php
+//echo ("123");
+$m = new MongoClient();
+if ($m)
+{
+echo ("hogaya ");    
+
+// select a database
+$db = $m->awt;
+
+// select a collection (analogous to a relational database's table)
+$collection = $db->doctor;
+
+// find a record
+
+/*$document = array( "Username" => $_SESSION["email"],
+                  "Password" => $_SESSION["password"]);*/
+$cursor=$collection->find();
+foreach ($cursor as $documents) {
+$dfname=$documents['FName'];
+$dlname=$documents['LName'];
+  echo  "<option value=".$dfname.">Dr ".$documents['FName']."\t".$documents['LName']."</option>";
+   //  echo ("Password :".$cursor["Password"] . "<br>");
+ //    echo ("Valid username or password");
+//$_SESSION["id"]=$cursor["_id"];
+//header('Location: checkappointment.php');    
+}
+// find everything in the collection
+//$cursor = $collection->find();
+// iterate through the results
+
+//echo $documents['FName'];
+
+//echo $documents['LName'];
+}
+else{
+  echo ("error");
+}
+
+?>
+	    </select>
+
+          </div>
         </div>
-        <div class="modal-body">
-          <p>Monday - Friday  &nbsp 8:00 - 17: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:00 - 17: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:00 - 17: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:00 - 17: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:00 - 17: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:00 - 17: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:00 - 17: 00 </p>
+	<div class="form-group">
+          <label class="control-label col-sm-2" for="Contact">Timings</label>
+          <div class="col-sm-10">
+	   
+            <select class="form-control" name="doctor" id="doctor">
+              <option value="0" disabled>Select Timeslots</option>
+	      <option value="lala" disabled>lala</option>
+	    </select>
+	    </div>
+	    </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
+      </form>
     </div>
   </div>
-  <div class="modal fade" id="myModal2" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Opening Timings</h4>
-        </div>
-        <div class="modal-body">
-          <p>Monday - Friday  &nbsp 8:30 - 17: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:20 - 17: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:30 - 17: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:30 - 17: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:30 - 17: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:30 - 17: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:30 - 17: 00 </p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  <div class="modal fade" id="myModal3" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Emergency Cases</h4>
-        </div>
-        <div class="modal-body">
-          <p>Monday - Friday  &nbsp 8:00 - 4: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:00 - 4: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:00 - 4: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:00 - 4: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:00 - 4: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:00 - 4: 00 </p>
-		  <p>Monday - Friday  &nbsp 8:00 - 4: 00 </p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-     </div> 
-    </div>
-  </div>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
 </div>
- <h2 align= "center" class="text-primary" >  MAKE AN APPOINTEMENT </h2>
- <br>
- <form a id= "#C4" class="form-horizontal" role="form">
-  
-	<div  class="form-group">
-      <label class="control-label col-sm-2" for="Username">NAME:</label>
-      <div class="col-sm-10">          
-        <input type="text" class="form-control" id="Username" placeholder="Enter your Name">
-      </div>
-    </div>
-   <div class="form-group">
-      <label class="control-label col-sm-2" for="Last">Last name:</label>
-      <div class="col-sm-10">          
-        <input type="text" class="form-control" id="Last" placeholder="Enter last name">
-      </div>
-    </div>
-	
-	<div class="form-group">
-      <label class="control-label col-sm-2" for="Contact">Date</label>
-      <div class="col-sm-10">          
-        <input type="date" class="form-control" id="datefrom" placeholder="Select Date">
-      </div>
-    </div>
-	
-	<div class="form-group">
-      
-    &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; <b>Preferred Doctor </b> : &nbsp; &nbsp;
-	   <button class="btn btn-default dropdown-toggle" type="dropdown" id="menu1" data-toggle="dropdown"> Doctors
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
-      
-    </ul>
+<div>
+</section>
+<!-- end of about section --> 
 
-  </div>
-	
-    <div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default">Submit</button>
+<!-- footer starts here -->
+<footer class="footer clearfix">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6 footer-para">
+        <p>&copy;CMS All right reserved</p>
       </div>
+      <div class="col-xs-6 text-right"> <a href=""><i class="fa fa-facebook"></i></a> <a href=""><i class="fa fa-twitter"></i></a> <a href=""><i class="fa fa-skype"></i></a> </div>
     </div>
-  </form>
-   
-   
-
-  
-  
   </div>
+</footer>
+
+<!-- script tags
+	============================================================= --> 
+<script src="js/jquery-2.1.1.js"></script> 
+<!--<script src="http://maps.google.com/maps/api/js?sensor=true"></script> 
+<script src="js/gmaps.js"></script> -->
+<script src="js/smoothscroll.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<!--<script src="js/custom.js"></script>-->
 </body>
 </html>
-
-  
