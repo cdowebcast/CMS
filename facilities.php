@@ -1,4 +1,15 @@
 <?php
+session_start();
+
+if (empty($_SESSION['id'])){
+
+  echo ("fail");
+  $_SESSION['message']="Please login to take an appointment";
+//  header ('Location: login.php');
+ echo ("hohoho");
+}
+
+
 if(isset($_POST['sign'])){
 
 session_start();

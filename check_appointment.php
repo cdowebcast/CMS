@@ -4,7 +4,7 @@ session_start();
 if (empty($_SESSION['id'])){
 echo ("fail");
 $_SESSION['message']="Please login to take an appointment";
-//  header ('Location: login.php');
+ header ('Location: login.php');
  echo ("hohoho");
 }
 ?>
@@ -44,8 +44,19 @@ $_SESSION['message']="Please login to take an appointment";
                 <li><a class="menu" href="index.php#service">our services </a></li>
                 <li><a class="menu" href="index.php#team">our team</a></li>
                 <li><a class="menu" href="index.php#contact"> contact us</a></li>
-                <li><a class="menu" href="signup.php"> Register</a></li>
-                <li><a class="menu" href="login.php"> Login</a></li>
+                <?php
+				if(empty($_SESSION['id']))
+						{
+							echo "<li><a class='menu' href='signup.php'> Register</a></li>";
+							echo "<li><a class='menu' href='login.php'> Login</a></li>";
+							
+						}
+						else{
+							
+							echo "<li><a class='menu' href='signout.php'>Sign Out</a></li>";
+							echo $_SESSION['email'];
+						}
+			?>
               </ul>
             </div>
             <!-- /navbar-collapse --> 
@@ -105,6 +116,7 @@ $collection = $db->appointments;
                   "Password" => $_SESSION["password"]);*/
 $cursor=$collection->find();
 foreach ($cursor as $documents) {
+$aid=$documents['_id'];  
 $pid=$documents['patientId'];
 $pfname=$documents['FName'];
 $plname=$documents['LName'];
@@ -123,7 +135,7 @@ echo  "<td >".$documents['Timings']."</td>";
 echo  "<td >".$documents['AppointmentNumber']."</td>";
 echo"   <td><a href='view_appointment.php?flag=V&PNAME=
 ".$documents['FName'].$documents['LName']."&prescription=".$documents['Prescription']."
-&diagnosis=".$documents['Diagnosis']."&date=".$documents['Date']."&fee=".$documents['Fee']."' > View </a></t>";
+&diagnosis=".$documents['Diagnosis']."&date=".$documents['Date']."&fee=".$documents['Fee']."&id=".$documents['_id']."' > View </a></t>";
 //  echo ("Password :".$cursor["Password"] . "<br>");
 //    echo ("Valid username or password");
 //$_SESSION["id"]=$cursor["_id"];

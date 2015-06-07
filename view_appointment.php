@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-/*if (empty($_SESSION['id'])){
+if (empty($_SESSION['id'])){
 
   echo ("fail");
   $_SESSION['message']="Please login to take an appointment";
@@ -9,20 +9,61 @@ session_start();
 //  echo ($_SESSION['email']);
 }
 
-*/
 $flag = $_GET['flag'];
 $PNAME = $_GET['PNAME'];
 $prescription=$_GET['prescription'];
 $diagnosis=$_GET['diagnosis'];
 $date=$_GET['date'];
 $fee=$_GET['fee'];
-
-echo $flag;
+$id=$_GET['id'];
+/*echo $flag;
 echo $PNAME;
 echo $prescription;
 echo $diagnosis;
 echo $date;
 echo $fee;
+*/
+if(isset($_POST['submitAppointment'])){
+  //echo ("hello\n");
+// connect
+$m = new MongoClient();
+if ($m)
+{
+//echo ("hogaya");    
+}
+// select a database
+$db = $m->awt;
+// select a collection (analogous to a relational database's table)
+$collection = $db->appointments;
+// add a record
+echo $_POST['prescription'];
+
+$collection->update(array('_id' => New MongoId($id)), array('$set'=>array("Prescription"=>$_POST['prescription'],"Diagnosis"=>$_POST['dignosis'],"Fee"=>$_POST['fee'])));
+if($collection){
+  $_SESSION['message']="Patient appointment updated Successfully.";
+  echo $_SESSION['message'];
+header('Location: check_appointment.php');
+// find everything in the collection
+/*$item = $collection->findOne(array(
+    '_id' => new MongoId('4e49fd8269fd873c0a000000')));
+
+$rangeQuery = array('_id' => New MongoId('557425262cbb9059a02f5077'));
+*/
+$rangeQuery = array('_id' => New MongoId($id));
+//echo "ObjectId(".$id.")";
+$cursor = $collection->find($rangeQuery);
+// iterate through the results
+foreach ($cursor as $documents) {
+echo ("\n_id:".$documents["_id"] . "<br>");
+echo ("Prescription :".$documents["Prescription"] . "<br>");//
+echo ("Diagnosis :".$documents["Diagnosis"] . "<br>");//
+echo ("Fee :".$documents["Fee"] . "<br>");
+				}
+
+}
+
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,32 +139,73 @@ echo $fee;
       <h4 class="modal-title"></h4>
     </div>
     <div class="modal-body">
-      <form a id= "#C4" class="form-horizontal" role="form">
+      <form a id= "#C4" class="form-horizontal" role="form" name="appForm" method="POST">
         <div  class="form-group">
           <label class="control-label col-sm-2" for="Username">NAME:</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="Username" placeholder="Enter your Name" value="heya">
+	    <?php
+	    if (empty($PNAME)){
+	      echo " <input type='text' class='form-control' id='Username' placeholder='Enter your Name' >";
+	    }
+	    else{
+	      echo " <input type='text' class='form-control' id='Username' value='".$PNAME."' readonly>";
+	    }
+	    ?>
+
           </div>
         </div>
         
         <div class="form-group">
           <label class="control-label col-sm-2" for="Contact">Date</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="datefrom" placeholder="Date Format: 'DD-MM-YYYY'">
+	      <?php
+	    if (empty($date)){
+	      
+	      echo "<input type='text' class='form-control' id='datefrom' placeholder='Date Format:DD-MM-YYYY'>";
+	    }
+	    else{
+echo"<input type='text' class='form-control' id='datefrom' value='".$date."'readonly>";
+
+	    }
+	    
+	    
+	    ?>
+	    
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-sm-2" for="Contact">Prescription</label>
           <div class="col-sm-10">
-	        <textarea type="text" class="form-control" id="prescription" name="prescription" placeholder="Enter your Prescription"></textarea>
+	 
+	      <?php
+	    if (empty($prescription)){
+	      
+	      echo "<input type='text' class='form-control' id='prescription' name='prescription' placeholder='Enter your Prescription'>";
+	    }
+	    else{
+	      echo "<input type='text' class='form-control' id='prescription' name='prescription' value='".$prescription."'>";
+	    }
+	    
+	    
+	    ?>
       </div>
         </div>
-		
-		
-        <div class="form-group">
+	 <div class="form-group">
           <label class="control-label col-sm-2" for="Contact">Dignosis</label>
          <div class="col-sm-10">
-	        <textarea type="text" class="form-control" id="dignosis" name="dignosis" placeholder="Enter your Dignosis"> </textarea>
+	       
+		<?php
+	    if (empty($fee)){
+	      echo "<input type='text' class='form-control' id='dignosis' name='dignosis' placeholder='Enter your Dignosis'> ";
+	     // echo " <input type='text' class='form-control'id='fee' name='fee' placeholder='Enter your Fee'>";
+	    }
+	    else{
+//	      echo " <input type='text' class='form-control'id='fee' name='fee' value=".$fee.">";
+	      echo "<input type='text' class='form-control' id='dignosis' name='dignosis' value='".$diagnosis."'> ";
+	    }
+	    
+	    
+	    ?>
       </div>
         </div>
 		
@@ -131,13 +213,24 @@ echo $fee;
 		<div class="form-group">
           <label class="control-label col-sm-2" for="Contact">Fee</label>
          <div class="col-sm-10">
-	        <input type="text" class="form-control" id="fee" name="fee" placeholder="Enter your Fee">
-      </div>
+	     
+       <?php
+	    if (empty($fee)){
+	      
+	      echo " <input type='text' class='form-control'id='fee' name='fee' placeholder='Enter your Fee'>";
+	    }
+	    else{
+	      echo " <input type='text' class='form-control'id='fee' name='fee' value=".$fee.">";
+	    }
+	    
+	    
+	    ?>
+	 </div>
         </div>
 		
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default" name="submitAppointment">Submit</button>
           </div>
         </div>
       </form>

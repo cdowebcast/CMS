@@ -38,7 +38,7 @@ if ($cursor){
  //    echo ("Valid username or password");
 $_SESSION["id"]=$cursor["_id"];
 //echo $_SESSION["id"];
-header('Location: appointment.php');  
+header('Location: facilities.php');  
      
 }
 else{
@@ -114,7 +114,7 @@ if ($cursor){
    //  echo ("Password :".$cursor["Password"] . "<br>");
  //    echo ("Valid username or password");
 $_SESSION["id"]=$cursor["_id"];
-header('Location: checkappointment.php');  
+header('Location: check_appointment.php');  
      
 }
 else{

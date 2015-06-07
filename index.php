@@ -56,7 +56,7 @@ session_start();
 							
 						}
 						else{
-							echo "<li><a class='menu' href='appointment.php'>Take Appointment</a></li>";
+							echo "<li><a class='menu' href='facilities.php'>Facilities</a></li>";
 							echo "<li><a class='menu' href='signout.php'>Sign Out</a></li>";
 							echo $_SESSION['email'];
 						}
