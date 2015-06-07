@@ -1,12 +1,16 @@
 <?php
+if(isset($_POST['sign'])){
+
 session_start();
+$_SESSION["email"] = $_POST['email'];
 
-if (empty($_SESSION['id'])){
+$_SESSION["password"] = $_POST['password'];
 
-  echo ("fail");
-  $_SESSION['message']="Please login to take an appointment";
-//  header ('Location: login.php');
- echo ("hohoho");
+$_SESSION["category"] = $_POST['type'];
+//echo $_SESSION["category"];
+//echo $_POST['type'];
+header('Location: appointment.php');
+
 }
 
 ?>
@@ -28,9 +32,9 @@ if (empty($_SESSION['id'])){
 <header class="top-header">
   <div class="container">
     <div class="row">
-      <div class="col-xs-5 header-logo"> <br>
+      <div class="col-xs-3 header-logo"> <br>
         <a href="index.php"><img src="img/logo.png" alt="" class="img-responsive logo"></a> </div>
-      <div class="col-md-7">
+      <div class="col-md-9">
         <nav class="navbar navbar-default">
           <div class="container-fluid nav-bar"> 
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -41,13 +45,14 @@ if (empty($_SESSION['id'])){
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                <li><a class="menu active" href="index.php#home" >Home</a></li>
+                <li><a class="menu " href="index.php#home" >Home</a></li>
                 <li><a class="menu" href="index.php#about">about us</a></li>
                 <li><a class="menu" href="index.php#service">our services </a></li>
                 <li><a class="menu" href="index.php#team">our team</a></li>
                 <li><a class="menu" href="index.php#contact"> contact us</a></li>
                 <li><a class="menu" href="signup.php"> Register</a></li>
                 <li><a class="menu" href="login.php"> Login</a></li>
+				<li><a class="menu active" href="facilities.php"> Facilities</a></li>
               </ul>
             </div>
             <!-- /navbar-collapse --> 
@@ -69,18 +74,15 @@ if (empty($_SESSION['id'])){
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h1 class="modal-title">Administrator</h1>
+          <h1 class="modal-title">Facilities</h1>
         </div>
         <div class="modal-body">
       <form  class="form-horizontal" role="form" method = "POST">
 	<div class="form-group">
-       <button type="button" class="btn btn-link"><h1><a href="signup.php">ADD Patient</a></h1></button>
-    </div>
-	<div class="form-group">
-       <button type="button" class="btn btn-link"><h1><a href="doctors.php">ADD Doctor</a></h1></button>
+       <button type="button" class="btn btn-link"><h1><a href="check_Prescriptions.php">View Prescriptions</a></h1></button>
     </div>
     <div class="form-group">
-       <button type="button" class="btn btn-link"><h1><a href="appointment.php">Create Appointment</a></h1></button>
+       <button type="button" class="btn btn-link"><h1><a href="appointment.php">Take Appointment</a></h1></button>
     </div>
 
     

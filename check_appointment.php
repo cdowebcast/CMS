@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (empty($_SESSION['id'])){
+echo ("fail");
+$_SESSION['message']="Please login to take an appointment";
+//  header ('Location: login.php');
+ echo ("hohoho");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,32 +75,86 @@
        <table class="table table-bordered">
         <thead>
           <tr>
-            <th width=5%>#</th>
-            <th width=10%>Name</th>
-            <th width=10%>Type</th>
-            <th width=10%>Price</th>
-            <th width=20%>Vendor Info</th>
-            <th width=20%>Display</th>
-            <th width=10%>Action</th>
-           
+        
+            <th width=10%>Patient Name</th>
+            <th width=10%>Date</th>
+            <th width=20%>Timings</th>
+            <th width=20%>Appointment Number</th>
+            <th width=20%>Action</th>
           </tr>
         </thead>
         <tbody>
         
-        <tr>
-            <td>1</td>
+       
+<?php
+//echo ("123");
+$m = new MongoClient();
+if ($m)
+{
+//echo ("hogaya ");    
+
+// select a database
+$db = $m->awt;
+
+// select a collection (analogous to a relational database's table)
+$collection = $db->appointments;
+
+// find a record
+
+/*$document = array( "Username" => $_SESSION["email"],
+                  "Password" => $_SESSION["password"]);*/
+$cursor=$collection->find();
+foreach ($cursor as $documents) {
+$pid=$documents['patientId'];
+$pfname=$documents['FName'];
+$plname=$documents['LName'];
+$date=$documents['Date'];
+$timings=$documents['Timings'];
+$did=$documents['doctorId'];
+$dfname=$documents['doctorFName'];
+$dlname=$documents['doctorLName'];
+$prescription=$documents['Prescription'];
+$diagnosis=$documents['Diagnosis'];
+$appointmentnumber=$documents['AppointmentNumber'];
+$fee=$documents['Fee'];
+echo  "<td >".$documents['FName']."\t".$documents['LName']."</td>";
+echo  "<td >".$documents['Date']."</td>";
+echo  "<td >".$documents['Timings']."</td>";
+echo  "<td >".$documents['AppointmentNumber']."</td>";
+echo"   <td><a href='view_appointment.php?flag=V&PNAME=
+".$documents['FName'].$documents['LName']."&prescription=".$documents['Prescription']."
+&diagnosis=".$documents['Diagnosis']."&date=".$documents['Date']."&fee=".$documents['Fee']."' > View </a></t>";
+//  echo ("Password :".$cursor["Password"] . "<br>");
+//    echo ("Valid username or password");
+//$_SESSION["id"]=$cursor["_id"];
+/*	echo      "<td><a href=update.php?flag=U&ST_ID=".oci_result($stmt, "ST_ID").">Update</a></td>";
+	echo      "<td><a href=update.php?flag=D&ST_ID=".oci_result($stmt, "ST_ID").">Delete</a></td>";
+	echo      "<td><a href=grade1.php?flag=U&ST_ID=".oci_result($stmt, "ST_ID").">UPLOAD GRADE</a></td></tr>";
+*/
+//header('Location: checkappointment.php');    
+}
+// find everything in the collection
+//$cursor = $collection->find();
+// iterate through the results
+
+//echo $documents['FName'];
+
+//echo $documents['LName'];
+}
+else{
+  echo ("error");
+}
+
+?>
+            
         				
         				
-      					<td>kjkj</td>
-						<td>lklk</td>
-						<td>tyty</td>
-						<td>tyre</td>
-						<td>poire</td>
 						
-		    <td><a href='#' onclick='return deleteConfirm(${id});' > View </a>
-			<a href='product_update.php?id={$id}'>Delete</a></td>
+		
    
           </tr>
+ 
+        
           
           </tbody>
         
