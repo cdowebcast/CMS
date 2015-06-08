@@ -5,7 +5,7 @@ if (empty($_SESSION['id'])){
 echo ("fail");
 $_SESSION['message']="Please login to take an appointment";
  header ('Location: login.php');
- echo ("hohoho");
+ //echo ("hohoho");
 }
 ?>
 <!DOCTYPE html>
@@ -16,8 +16,12 @@ $_SESSION['message']="Please login to take an appointment";
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/font.css">
+<link rel="stylesheet" href="css/font2.css">
+<!--
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,800,700,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=BenchNine:300,400,700' rel='stylesheet' type='text/css'>
+ -->
 </head>
 <body>
 
@@ -51,6 +55,7 @@ $_SESSION['message']="Please login to take an appointment";
 							echo "<li><a class='menu' href='login.php'> Login</a></li>";
 							
 						}
+
 						else{
 							
 							echo "<li><a class='menu' href='signout.php'>Sign Out</a></li>";
@@ -123,12 +128,13 @@ $plname=$documents['LName'];
 $date=$documents['Date'];
 $timings=$documents['Timings'];
 $did=$documents['doctorId'];
-$dfname=$documents['doctorFName'];
-$dlname=$documents['doctorLName'];
+//$dfname=$documents['doctorFName'];
+//$dlname=$documents['doctorLName'];
 $prescription=$documents['Prescription'];
 $diagnosis=$documents['Diagnosis'];
 $appointmentnumber=$documents['AppointmentNumber'];
 $fee=$documents['Fee'];
+echo "<tr>";
 echo  "<td >".$documents['FName']."\t".$documents['LName']."</td>";
 echo  "<td >".$documents['Date']."</td>";
 echo  "<td >".$documents['Timings']."</td>";
@@ -152,6 +158,7 @@ echo"   <td><a href='view_appointment.php?flag=V&PNAME=
 //echo $documents['FName'];
 
 //echo $documents['LName'];
+echo "</tr>";
 }
 else{
   echo ("error");
@@ -197,11 +204,12 @@ else{
 
 <!-- script tags
 	============================================================= --> 
-<script src="js/jquery-2.1.1.js"></script> 
-<script src="http://maps.google.com/maps/api/js?sensor=true"></script> 
-<script src="js/gmaps.js"></script> 
-<script src="js/smoothscroll.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/custom.js"></script>
+	<script src="js/jquery-2.1.1.js"></script>
+	<!--<script src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+	<script src="js/gmaps.js"></script>
+	<script src="js/smoothscroll.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/custom.js"></script>
+
 </body>
 </html>

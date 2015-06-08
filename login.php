@@ -139,8 +139,12 @@ else{
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/font.css">
+<link rel="stylesheet" href="css/font2.css">
+<!--
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,800,700,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=BenchNine:300,400,700' rel='stylesheet' type='text/css'>
+ -->
 </head>
 <body>
 
@@ -168,7 +172,7 @@ else{
                 <li><a class="menu" href="index.php#team">our team</a></li>
                 <li><a class="menu" href="index.php#contact"> contact us</a></li>
                 <li><a class="menu" href="signup.php"> Register</a></li>
-                <li><a class="menu" href="login.php"> Login</a></li>
+                <li><a class="menu active" href="login.php"> Login</a></li>
               </ul>
             </div>
             <!-- /navbar-collapse --> 
@@ -223,6 +227,9 @@ else{
 	<div class="form-group">        
       <div class="col-sm-offset-1 col-sm-2" >
         <button type="submit" class="btn btn-default" name="sign">Submit</button>
+		 </div>
+	  <a href="signup.php" style="color:black"> <strong>Not yet Registered? Register Here!</strong></a>
+    </div>
       </div>
     </div>
 	</div>
@@ -248,11 +255,12 @@ else{
 
 <!-- script tags
 	============================================================= --> 
-<script src="js/jquery-2.1.1.js"></script> 
-<script src="http://maps.google.com/maps/api/js?sensor=true"></script> 
-<script src="js/gmaps.js"></script> 
-<script src="js/smoothscroll.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/custom.js"></script>
+	<script src="js/jquery-2.1.1.js"></script>
+	<!--<script src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+	<script src="js/gmaps.js"></script>
+	<script src="js/smoothscroll.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/custom.js"></script>
+
 </body>
 </html>

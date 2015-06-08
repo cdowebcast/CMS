@@ -5,9 +5,64 @@ if (empty($_SESSION['id'])){
 
   echo ("fail");
   $_SESSION['message']="Please login to take an appointment";
-  header ('Location: login.php');
+ header ('Location: login.php');
 //  echo ($_SESSION['email']);
 }
+if(isset($_POST['appSubmit'])){
+echo $_POST['username'];
+echo $_POST['date'];
+echo $_POST['doctor'];
+echo $_POST['timings'];
+
+
+
+$m = new MongoClient();
+if ($m)
+{
+//echo ("hogaya");    
+}
+// select a database
+$db = $m->awt;
+// select a collection (analogous to a relational database's table)
+$collection = $db->appointments;
+// add a record
+$document = array( "patientId" =>New MongoId($_SESSION["id"]),
+                  "FName" => $_POST['username'], //
+                  "LName" =>"", //
+                  "Date" => $_POST['date'],
+                  "Timings" => $_POST['timings'],
+                  "doctorId" => "",
+                  "DoctorFName" => $_POST['doctor'],
+                  "DoctorLName" => " ",
+                  "Prescription" => "",
+		  "Diagnosis" => "",
+		  "Fee" => "",
+		  "AppointmentNumber" => 13
+		  );
+$collection->insert($document);
+if($collection){
+  $_SESSION['message']="Patient Created Successfully. Login to continue";
+header('Location: facilities.php');
+// find everything in the collection
+/*
+$cursor = $collection->find();
+// iterate through the results
+foreach ($cursor as $documents) {
+echo ("First Name :".$documents["FName"] . "<br>");
+echo ("Last Name :".$documents["LName"] . "<br>");//
+echo ("NIC :".$documents["NIC"] . "<br>");//
+echo ("Address :".$documents["Address"] . "<br>");
+echo ("Contact :".$documents["Contact"] . "<br>");
+echo ("Gender :".$documents["Gender"] . "<br>");
+echo ("Email :".$documents["Email"] . "<br>");
+echo ("Age :".$documents["Age"] . "<br>");
+echo ("Username :".$documents["Username"] . "<br>") ;
+echo ("Password :".$documents["Password"]."<br>");
+				}
+*/
+}
+}
+
 
 
 ?>
@@ -19,8 +74,12 @@ if (empty($_SESSION['id'])){
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/font.css">
+<link rel="stylesheet" href="css/font2.css">
+<!--
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,800,700,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=BenchNine:300,400,700' rel='stylesheet' type='text/css'>
+ -->
 </head>
 <body>
 
@@ -56,11 +115,12 @@ if (empty($_SESSION['id'])){
 							
 						}
 						else{
+					  
 					  echo "<li><a class='menu' href='facilities.php'>Facilities</a></li>";
 							echo "<li><a class='menu' href='signout.php'>Sign Out</a></li>";
 							echo $_SESSION['email'];
 						}
-			?>
+			    ?>
               </ul>
             </div>
             <!-- /navbar-collapse --> 
@@ -85,17 +145,17 @@ if (empty($_SESSION['id'])){
       <h4 class="modal-title"></h4>
     </div>
     <div class="modal-body">
-      <form a id= "#C4" class="form-horizontal" role="form">
+      <form a id= "#C4" class="form-horizontal" role="form" name="newForm" method="POST">
         <div  class="form-group">
           <label class="control-label col-sm-2" for="Username">Patient Name:</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="Username" placeholder="Enter your Name">
+            <input type="text" class="form-control" id="Username" name="username" placeholder="Enter your Name">
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-sm-2" for="Contact">Date</label>
           <div class="col-sm-10">
-            <input type="date" class="form-control" id="datefrom" placeholder="Select Date">
+            <input type="text" class="form-control" id="datefrom" name="date" placeholder="Date format: 'DD-MM-YYYY'">
           </div>
         </div>
         <div class="form-group">
@@ -154,15 +214,20 @@ else{
           <label class="control-label col-sm-2" for="Contact">Timings</label>
           <div class="col-sm-10">
 	   
-            <select class="form-control" name="doctor" id="doctor">
+            <select class="form-control" name="timings" id="timings">
               <option value="0" disabled>Select Timeslots</option>
-	      <option value="lala" disabled>lala</option>
+	      <option value="Monday 8:30 pm to 11:30 pm">Monday 8:30 pm to 11:30 pm</option>
+	      <option value="Tuesday 6:30 pm to 9:30 pm">Tuesday 6:30 pm to 9:30 pm</option>
+	      <option value="Wednesday 2:00 pm to 5:00 pm">Wednesday 2:00 pm to 5:00 pm</option>
+	      <option value="Thursday 10:30 am to 12:30 pm">Thursday 10:30 am to 12:30 pm</option>
+	      <option value="Friday 09:30 am to 11:00 am">Friday 09:30 am to 11:00 am</option>
+	      <option value="Saturday 3:00 pm to 6:00 pm">Saturday 3:00 pm to 6:00 pm</option>
 	    </select>
 	    </div>
 	    </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default" name="appSubmit">Submit</button>
           </div>
         </div>
       </form>
@@ -187,11 +252,11 @@ else{
 
 <!-- script tags
 	============================================================= --> 
-<script src="js/jquery-2.1.1.js"></script> 
-<!--<script src="http://maps.google.com/maps/api/js?sensor=true"></script> 
-<script src="js/gmaps.js"></script> -->
-<script src="js/smoothscroll.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<!--<script src="js/custom.js"></script>-->
+	<script src="js/jquery-2.1.1.js"></script>
+	<!--<script src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+	<script src="js/gmaps.js"></script>
+	<script src="js/smoothscroll.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/custom.js"></script>
 </body>
 </html>

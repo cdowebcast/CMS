@@ -5,7 +5,7 @@ if (empty($_SESSION['id'])){
 
   echo ("fail");
   $_SESSION['message']="Please login to take an appointment";
-//  header ('Location: login.php');
+  header ('Location: login.php');
  echo ("hohoho");
 }
 
@@ -14,23 +14,30 @@ if (empty($_SESSION['id'])){
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Signup</title>
+<title>Facilities</title>
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/font.css">
+<link rel="stylesheet" href="css/font2.css">
+<!--
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,800,700,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=BenchNine:300,400,700' rel='stylesheet' type='text/css'>
+ -->
+  <script src="js/angular.min.js"></script>
+  <script src="js/angular-sanitize.js"></script>
+  <script src="script1.js"></script>
 </head>
-<body>
+<body ng-app="bindHtmlExample1">
 
 <!-- ====================================================
 	header section -->
 <header class="top-header">
   <div class="container">
     <div class="row">
-      <div class="col-xs-5 header-logo"> <br>
+      <div class="col-xs-3 header-logo"> <br>
         <a href="index.php"><img src="img/logo.png" alt="" class="img-responsive logo"></a> </div>
-      <div class="col-md-7">
+      <div class="col-md-9">
         <nav class="navbar navbar-default">
           <div class="container-fluid nav-bar"> 
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -41,13 +48,14 @@ if (empty($_SESSION['id'])){
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                <li><a class="menu active" href="index.php#home" >Home</a></li>
+                <li><a class="menu " href="index.php#home" >Home</a></li>
                 <li><a class="menu" href="index.php#about">about us</a></li>
                 <li><a class="menu" href="index.php#service">our services </a></li>
                 <li><a class="menu" href="index.php#team">our team</a></li>
                 <li><a class="menu" href="index.php#contact"> contact us</a></li>
                 <li><a class="menu" href="signup.php"> Register</a></li>
                 <li><a class="menu" href="login.php"> Login</a></li>
+				<li><a class="menu active" href="facilities.php"> Facilities</a></li>
               </ul>
             </div>
             <!-- /navbar-collapse --> 
@@ -69,25 +77,14 @@ if (empty($_SESSION['id'])){
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h1 class="modal-title">Administrator</h1>
+          <h1 class="modal-title">Facilities</h1>
         </div>
         <div class="modal-body">
-      <form  class="form-horizontal" role="form" method = "POST">
-	<div class="form-group">
-       <button type="button" class="btn btn-link"><h1><a href="signup.php">ADD Patient</a></h1></button>
-    </div>
-	<div class="form-group">
-       <button type="button" class="btn btn-link"><h1><a href="doctors.php">ADD Doctor</a></h1></button>
-    </div>
-    <div class="form-group">
-       <button type="button" class="btn btn-link"><h1><a href="appointment.php">Create Appointment</a></h1></button>
-    </div>
-
-    
-    
-	
-	</div>
-    </form>
+      <div ng-controller="ExampleController1">
+ <h1 ng-bind-html="myHTML2"></h1>
+  <h1 ng-bind-html="myHTML3"></h1>
+    <h1 ng-bind-html="myHTML4"></h1>
+</div>
         </div>
       </div>
  					</div>
@@ -109,11 +106,12 @@ if (empty($_SESSION['id'])){
 
 <!-- script tags
 	============================================================= --> 
-<script src="js/jquery-2.1.1.js"></script> 
-<script src="http://maps.google.com/maps/api/js?sensor=true"></script> 
-<script src="js/gmaps.js"></script> 
-<script src="js/smoothscroll.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/custom.js"></script>
+	<script src="js/jquery-2.1.1.js"></script>
+	<!--<script src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+	<script src="js/gmaps.js"></script>
+	<script src="js/smoothscroll.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/custom.js"></script>
+
 </body>
 </html>

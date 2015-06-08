@@ -8,8 +8,9 @@ if (empty($_SESSION['id'])){
   header ('Location: login.php');
 //  echo ($_SESSION['email']);
 }
-
+if(isset($_GET['flag'])){
 $flag = $_GET['flag'];
+//echo $flag;
 $PNAME = $_GET['PNAME'];
 $prescription=$_GET['prescription'];
 $diagnosis=$_GET['diagnosis'];
@@ -31,12 +32,13 @@ if ($m)
 {
 //echo ("hogaya");    
 }
+
 // select a database
 $db = $m->awt;
 // select a collection (analogous to a relational database's table)
 $collection = $db->appointments;
 // add a record
-echo $_POST['prescription'];
+//echo $_POST['prescription'];
 
 $collection->update(array('_id' => New MongoId($id)), array('$set'=>array("Prescription"=>$_POST['prescription'],"Diagnosis"=>$_POST['dignosis'],"Fee"=>$_POST['fee'])));
 if($collection){
@@ -62,7 +64,10 @@ echo ("Fee :".$documents["Fee"] . "<br>");
 
 }
 
-
+}
+if(isset($_POST['back'])){
+  header('Location: check_appointment.php');
+}
 }
 ?>
 <!DOCTYPE html>
@@ -73,8 +78,12 @@ echo ("Fee :".$documents["Fee"] . "<br>");
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/font.css">
+<link rel="stylesheet" href="css/font2.css">
+<!--
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,800,700,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=BenchNine:300,400,700' rel='stylesheet' type='text/css'>
+ -->
 </head>
 <body>
 
@@ -110,7 +119,7 @@ echo ("Fee :".$documents["Fee"] . "<br>");
 							
 						}
 						else{
-					  echo "<li><a class='menu' href='appointment.php'>Take Appointment</a></li>";
+					  echo "<li><a class='menu' href='facilities.php'>Facilities</a></li>";
 							echo "<li><a class='menu' href='signout.php'>Sign Out</a></li>";
 							echo $_SESSION['email'];
 						}
@@ -144,11 +153,18 @@ echo ("Fee :".$documents["Fee"] . "<br>");
           <label class="control-label col-sm-2" for="Username">NAME:</label>
           <div class="col-sm-10">
 	    <?php
+	    if(isset($flag)){
+	      
+	    
 	    if (empty($PNAME)){
 	      echo " <input type='text' class='form-control' id='Username' placeholder='Enter your Name' >";
 	    }
 	    else{
 	      echo " <input type='text' class='form-control' id='Username' value='".$PNAME."' readonly>";
+	    }
+	    }
+	    else{
+	       echo "<input type='text' class='form-control' id='Username' placeholder='Enter your Name'>";
 	    }
 	    ?>
 
@@ -159,6 +175,8 @@ echo ("Fee :".$documents["Fee"] . "<br>");
           <label class="control-label col-sm-2" for="Contact">Date</label>
           <div class="col-sm-10">
 	      <?php
+	     if(isset($flag)){
+	      
 	    if (empty($date)){
 	      
 	      echo "<input type='text' class='form-control' id='datefrom' placeholder='Date Format:DD-MM-YYYY'>";
@@ -167,6 +185,11 @@ echo ("Fee :".$documents["Fee"] . "<br>");
 echo"<input type='text' class='form-control' id='datefrom' value='".$date."'readonly>";
 
 	    }
+	     }
+	     else{
+	     echo "<input type='text' class='form-control' id='datefrom' placeholder='Date Format:DD-MM-YYYY'>";
+	    }
+	     
 	    
 	    
 	    ?>
@@ -178,6 +201,7 @@ echo"<input type='text' class='form-control' id='datefrom' value='".$date."'read
           <div class="col-sm-10">
 	 
 	      <?php
+	    if(isset($flag)){
 	    if (empty($prescription)){
 	      
 	      echo "<input type='text' class='form-control' id='prescription' name='prescription' placeholder='Enter your Prescription'>";
@@ -185,8 +209,11 @@ echo"<input type='text' class='form-control' id='datefrom' value='".$date."'read
 	    else{
 	      echo "<input type='text' class='form-control' id='prescription' name='prescription' value='".$prescription."'>";
 	    }
-	    
-	    
+	    }
+	    else{
+	     echo "<input type='text' class='form-control' id='prescription' name='prescription' placeholder='Enter your Prescription'>";
+	   
+	    }
 	    ?>
       </div>
         </div>
@@ -195,16 +222,19 @@ echo"<input type='text' class='form-control' id='datefrom' value='".$date."'read
          <div class="col-sm-10">
 	       
 		<?php
+	   if(isset($flag)){
 	    if (empty($fee)){
 	      echo "<input type='text' class='form-control' id='dignosis' name='dignosis' placeholder='Enter your Dignosis'> ";
 	     // echo " <input type='text' class='form-control'id='fee' name='fee' placeholder='Enter your Fee'>";
 	    }
 	    else{
-//	      echo " <input type='text' class='form-control'id='fee' name='fee' value=".$fee.">";
+	    //echo " <input type='text' class='form-control'id='fee' name='fee' value=".$fee.">";
 	      echo "<input type='text' class='form-control' id='dignosis' name='dignosis' value='".$diagnosis."'> ";
 	    }
-	    
-	    
+	   }	    
+	    else{
+	     echo "<input type='text' class='form-control' id='prescription' name='prescription' placeholder='Enter your Prescription'>";
+	    }
 	    ?>
       </div>
         </div>
@@ -215,6 +245,7 @@ echo"<input type='text' class='form-control' id='datefrom' value='".$date."'read
          <div class="col-sm-10">
 	     
        <?php
+	    if(isset($flag)){
 	    if (empty($fee)){
 	      
 	      echo " <input type='text' class='form-control'id='fee' name='fee' placeholder='Enter your Fee'>";
@@ -222,7 +253,10 @@ echo"<input type='text' class='form-control' id='datefrom' value='".$date."'read
 	    else{
 	      echo " <input type='text' class='form-control'id='fee' name='fee' value=".$fee.">";
 	    }
-	    
+	    }
+	      else{
+	     	      echo "<input type='text' class='form-control'id='fee' name='fee' placeholder='Enter your Fee'>";
+	    }
 	    
 	    ?>
 	 </div>
@@ -230,7 +264,25 @@ echo"<input type='text' class='form-control' id='datefrom' value='".$date."'read
 		
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default" name="submitAppointment">Submit</button>
+	    <?php
+	    if(isset($flag)){
+	      
+	    if($flag=="V"){
+	          echo "<button type='submit' class='btn btn-default' name='submitAppointment'>Submit</button>";
+		   echo "<button type='submit' class='btn btn-default' name='back'>Back</button>";
+	    }
+	    else if($flag=="E"){
+		  echo "<button type='submit' class='btn btn-default' name='back'>Back</button>";
+		  
+	    }
+	    	    }
+		    else{
+		      echo "<button type='submit' class='btn btn-default' name='back'>Back</button>";
+		    }
+		    
+
+	    ?>
+
           </div>
         </div>
       </form>
@@ -255,11 +307,12 @@ echo"<input type='text' class='form-control' id='datefrom' value='".$date."'read
 
 <!-- script tags
 	============================================================= --> 
-<script src="js/jquery-2.1.1.js"></script> 
-<!--<script src="http://maps.google.com/maps/api/js?sensor=true"></script> 
-<script src="js/gmaps.js"></script> -->
-<script src="js/smoothscroll.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<!--<script src="js/custom.js"></script>-->
+	<script src="js/jquery-2.1.1.js"></script>
+	<!--<script src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+	<script src="js/gmaps.js"></script>
+	<script src="js/smoothscroll.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/custom.js"></script>
+
 </body>
 </html>

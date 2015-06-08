@@ -5,7 +5,7 @@ if (empty($_SESSION['id'])){
 
   echo ("fail");
   $_SESSION['message']="Please login to take an appointment";
-//  header ('Location: login.php');
+ header ('Location: login.php');
  echo ("hohoho");
 }
 
@@ -29,14 +29,22 @@ header('Location: appointment.php');
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Signup</title>
+<title>Facilities</title>
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet" href="css/font.css">
+<link rel="stylesheet" href="css/font2.css">
+<!--
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,800,700,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=BenchNine:300,400,700' rel='stylesheet' type='text/css'>
+ -->
+ <script src="js/angular.min.js"></script>
+  <script src="js/angular-sanitize.js"></script>
+  <script src="script.js"></script>
 </head>
-<body>
+<body ng-app="bindHtmlExample">
 
 <!-- ====================================================
 	header section -->
@@ -61,9 +69,19 @@ header('Location: appointment.php');
                 <li><a class="menu" href="index.php#service">our services </a></li>
                 <li><a class="menu" href="index.php#team">our team</a></li>
                 <li><a class="menu" href="index.php#contact"> contact us</a></li>
-                <li><a class="menu" href="signup.php"> Register</a></li>
-                <li><a class="menu" href="login.php"> Login</a></li>
-				<li><a class="menu active" href="facilities.php"> Facilities</a></li>
+               <?php
+				if(empty($_SESSION['id']))
+						{
+							echo "<li><a class='menu' href='signup.php'> Register</a></li>";
+							echo "<li><a class='menu' href='login.php'> Login</a></li>";
+							
+						}
+						else{
+					  echo "<li><a class='menu' href='facilities.php'>Facilities</a></li>";
+							echo "<li><a class='menu' href='signout.php'>Sign Out</a></li>";
+							echo $_SESSION['email'];
+						}
+			?>
               </ul>
             </div>
             <!-- /navbar-collapse --> 
@@ -88,19 +106,10 @@ header('Location: appointment.php');
           <h1 class="modal-title">Facilities</h1>
         </div>
         <div class="modal-body">
-      <form  class="form-horizontal" role="form" method = "POST">
-	<div class="form-group">
-       <button type="button" class="btn btn-link"><h1><a href="check_Prescriptions.php">View Prescriptions</a></h1></button>
-    </div>
-    <div class="form-group">
-       <button type="button" class="btn btn-link"><h1><a href="appointment.php">Take Appointment</a></h1></button>
-    </div>
-
-    
-    
-	
-	</div>
-    </form>
+      <div ng-controller="ExampleController">
+ <h1 ng-bind-html="myHTML"></h1>
+  <h1 ng-bind-html="myHTML1"></h1>
+</div>
         </div>
       </div>
  					</div>
@@ -122,11 +131,11 @@ header('Location: appointment.php');
 
 <!-- script tags
 	============================================================= --> 
-<script src="js/jquery-2.1.1.js"></script> 
-<script src="http://maps.google.com/maps/api/js?sensor=true"></script> 
-<script src="js/gmaps.js"></script> 
-<script src="js/smoothscroll.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/custom.js"></script>
+	<script src="js/jquery-2.1.1.js"></script>
+	<!--<script src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+	<script src="js/gmaps.js"></script>
+	<script src="js/smoothscroll.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/custom.js"></script>
 </body>
 </html>
