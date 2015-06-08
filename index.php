@@ -51,6 +51,7 @@ session_start();
 					        <li><a class="menu" href="#service">our services </a></li>
 					        <li><a class="menu" href="#team">our team</a></li>
 					        <li><a class="menu" href="#contact"> contact us</a></li>
+						<li><a class="menu" href="map.php"> locate us</a></li>
                              
                           <?php
 				if(empty($_SESSION['id']))

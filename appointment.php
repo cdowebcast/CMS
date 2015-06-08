@@ -149,21 +149,21 @@ echo ("Password :".$documents["Password"]."<br>");
         <div  class="form-group">
           <label class="control-label col-sm-2" for="Username">Patient Name:</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="Username" name="username" placeholder="Enter your Name">
+            <input type="text" class="form-control" id="Username" name="username" placeholder="Enter your Name" required>
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-sm-2" for="Contact">Date</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="datefrom" name="date" placeholder="Date format: 'DD-MM-YYYY'">
+            <input type="text" class="form-control" id="datefrom" name="date" placeholder="Date format: 'DD-MM-YYYY'" required>
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-sm-2" for="Contact">Doctor</label>
           <div class="col-sm-10">
 	   
-            <select class="form-control" name="doctor" id="doctor">
-              <option value="0" disabled>Select Doctor</option>
+            <select class="form-control" name="doctor" id="doctor"required >
+              <option value="0" disabled >Select Doctor</option>
             
 
 <?php

@@ -7,13 +7,9 @@ if (empty($_SESSION['id'])){
 
   echo ("fail");
   $_SESSION['message']="Please login to take an appointment";
- // header ('Location: login.php');
+ header ('Location: login.php');
  echo ("hohoho");
 }
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -140,8 +136,8 @@ echo ("Prescription :".$documents["Prescription"]."<br>");//
 echo ("AppointmentNumber :".$documents["AppointmentNumber"] . "<br>");
 */
 echo " <tr>";
-echo "<td>'".$documents["Timings"]."'</td>";
-echo "<td>'".$documents["DoctorFName"]." ".$documents["DoctorLName"]."'</td>";								
+echo "<td>".$documents["Timings"]."</td>";
+echo "<td>".$documents["DoctorFName"]." ".$documents["DoctorLName"]."</td>";								
 echo"<td><a href=view_appointment.php?flag=E&PNAME=".$documents["FName"].$documents["LName"]."&prescription=".$documents['Prescription']."&diagnosis=".$documents['Diagnosis']."&date=".$documents['Date']."&fee=".$documents['Fee']."&id=".$documents['_id']."'>View Prescriptions</a></td>";
 echo"</tr>";
 }

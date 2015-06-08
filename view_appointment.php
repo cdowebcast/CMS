@@ -66,8 +66,12 @@ echo ("Fee :".$documents["Fee"] . "<br>");
 
 }
 if(isset($_POST['back'])){
-  header('Location: check_appointment.php');
+header('Location: check_Prescriptions.php');
 }
+if(isset($_POST['back1'])){
+header('Location: check_appointment.php');
+}
+
 }
 ?>
 <!DOCTYPE html>
@@ -153,6 +157,7 @@ if(isset($_POST['back'])){
           <label class="control-label col-sm-2" for="Username">NAME:</label>
           <div class="col-sm-10">
 	    <?php
+	    
 	    if(isset($flag)){
 	      
 	    
@@ -201,14 +206,23 @@ echo"<input type='text' class='form-control' id='datefrom' value='".$date."'read
           <div class="col-sm-10">
 	 
 	      <?php
+	      
 	    if(isset($flag)){
-	    if (empty($prescription)){
+	    
+	    if ($flag=="V"){
+	      if (empty($prescription)){
 	      
 	      echo "<input type='text' class='form-control' id='prescription' name='prescription' placeholder='Enter your Prescription'>";
 	    }
 	    else{
 	      echo "<input type='text' class='form-control' id='prescription' name='prescription' value='".$prescription."'>";
 	    }
+	    
+	    }
+	    else if ($flag=="E"){
+	      echo "<input type='text' class='form-control' id='prescription' name='prescription' readonly value='".$prescription."' >";
+	    }
+	    
 	    }
 	    else{
 	     echo "<input type='text' class='form-control' id='prescription' name='prescription' placeholder='Enter your Prescription'>";
@@ -222,18 +236,26 @@ echo"<input type='text' class='form-control' id='datefrom' value='".$date."'read
          <div class="col-sm-10">
 	       
 		<?php
+		
+
 	   if(isset($flag)){
+	    
+	    if ($flag=="V"){
+	    
 	    if (empty($fee)){
 	      echo "<input type='text' class='form-control' id='dignosis' name='dignosis' placeholder='Enter your Dignosis'> ";
 	     // echo " <input type='text' class='form-control'id='fee' name='fee' placeholder='Enter your Fee'>";
 	    }
-	    else{
-	    //echo " <input type='text' class='form-control'id='fee' name='fee' value=".$fee.">";
-	      echo "<input type='text' class='form-control' id='dignosis' name='dignosis' value='".$diagnosis."'> ";
+else{
+  echo "<input type='text' class='form-control' id='dignosis' name='dignosis' value='".$diagnosis."'> ";
+}
+	    }
+	    else if ($flag=="E"){
+	       echo "<input type='text' class='form-control' id='dignosis' name='dignosis' readonly value='".$diagnosis."' > ";
 	    }
 	   }	    
-	    else{
-	     echo "<input type='text' class='form-control' id='prescription' name='prescription' placeholder='Enter your Prescription'>";
+else{
+    echo "<input type='text' class='form-control' id='prescription' name='prescription' placeholder='Enter your Prescription'>";
 	    }
 	    ?>
       </div>
@@ -246,16 +268,24 @@ echo"<input type='text' class='form-control' id='datefrom' value='".$date."'read
 	     
        <?php
 	    if(isset($flag)){
-	    if (empty($fee)){
+	   
+	     if ($flag=="V"){
+	     
+	       if (empty($fee)){
 	      
-	      echo " <input type='text' class='form-control'id='fee' name='fee' placeholder='Enter your Fee'>";
+	      echo " <input type='text' class='form-control'id='fee' name='fee' placeholder='Enter your Fee!!!'>";
 	    }
 	    else{
-	      echo " <input type='text' class='form-control'id='fee' name='fee' value=".$fee.">";
+	       echo " <input type='text' class='form-control'id='fee' name='fee' value=".$fee." >";
 	    }
+	    }
+	      else if ($flag=="E"){
+	echo " <input type='text' class='form-control'id='fee' name='fee'
+	readonly value=".$fee."  >";
+	      }
 	    }
 	      else{
-	     	      echo "<input type='text' class='form-control'id='fee' name='fee' placeholder='Enter your Fee'>";
+	     	      echo "<input type='text' class='form-control'id='fee' name='fee' placeholder='Enter your Fee!' >";
 	    }
 	    
 	    ?>
@@ -269,7 +299,7 @@ echo"<input type='text' class='form-control' id='datefrom' value='".$date."'read
 	      
 	    if($flag=="V"){
 	          echo "<button type='submit' class='btn btn-default' name='submitAppointment'>Submit</button>";
-		   echo "<button type='submit' class='btn btn-default' name='back'>Back</button>";
+		   echo "<button type='submit' class='btn btn-default' name='back1'>Back</button>";
 	    }
 	    else if($flag=="E"){
 		  echo "<button type='submit' class='btn btn-default' name='back'>Back</button>";

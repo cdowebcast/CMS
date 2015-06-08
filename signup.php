@@ -84,7 +84,7 @@ echo ("Password :".$documents["Password"]."<br>");
     <div class="row">
       <div class="col-xs-2 header-logo"> <br>
         <a href="index.php"><img src="img/logo.png" alt="" class="img-responsive logo"></a> </div>
-      <div class="col-md-13">
+      <div class="col-md-9">
         <nav class="navbar navbar-default">
           <div class="container-fluid nav-bar"> 
             <!-- Brand and toggle get grouped for better mobile display -->
